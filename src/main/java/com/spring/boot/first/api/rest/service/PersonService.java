@@ -18,6 +18,8 @@ public interface PersonService {
 	List<Person> buscarPersonasPorNombrePais(String nombrePais);
 
 	List<Person> buscarPersonasPorApellido(String apellido);
+	
+	void eliminarPersona(Long id);
 
 
 }

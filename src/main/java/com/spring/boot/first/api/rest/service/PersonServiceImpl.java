@@ -48,4 +48,9 @@ public class PersonServiceImpl implements PersonService{
 	public List<Person> buscarPersonasPorApellido(String apellido) {
 		return personRepo.findBySurname(apellido);
 	}
+
+	@Override
+	public void eliminarPersona(Long id) {
+		personRepo.deleteById(id);		
+	}
 }

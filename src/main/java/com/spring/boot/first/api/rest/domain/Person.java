@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +19,8 @@ public class Person {
 	private String surname;
 	private String dni;
 	private String age;
-	@JoinColumn(name = "id_countries")
+	@ManyToOne
+	@JoinColumn(name = "id_country")
 	private Country country;
 
 	public Long getId() {

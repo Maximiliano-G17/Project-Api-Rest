@@ -38,4 +38,14 @@ public class PersonServiceImpl implements PersonService{
 	public List<Person> buscarPersonasPorIdPais(Long idPais) {
 		return personRepo.findByCountryId(idPais);
 	}
+
+	@Override
+	public List<Person> buscarPersonasPorNombrePais(String nombrePais) {
+		return personRepo.findByCountryName(nombrePais);
+	}
+
+	@Override
+	public List<Person> buscarPersonasPorApellido(String apellido) {
+		return personRepo.findBySurname(apellido);
+	}
 }

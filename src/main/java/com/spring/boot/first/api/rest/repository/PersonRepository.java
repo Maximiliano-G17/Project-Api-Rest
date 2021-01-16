@@ -10,4 +10,8 @@ public interface PersonRepository extends JpaRepository<Person, Long>{
 
 	List<Person> findByCountryId(Long idPais);
 
+	List<Person> findByCountryName(String nombrePais);
+
+	List<Person> findBySurname(String apellido);
+
 }

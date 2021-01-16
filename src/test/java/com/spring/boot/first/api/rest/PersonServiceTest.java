@@ -59,22 +59,60 @@ public class PersonServiceTest {
 	}
 	
 	@Test
-	public void buscarPersonaPorIdPais_conIdExistente_retornaListaDePersonas() {
+	public void buscarPersonasPorIdPais_conIdExistente_retornaListaDePersonas() {
 		Long idPais = 1L;
 		
 		List<Person> personasEncontradasPorPais = personService.buscarPersonasPorIdPais(idPais);
 		
 		assertThat(personasEncontradasPorPais).isNotNull();
-		assertEquals("Argentina",personasEncontradasPorPais.get(0).getCountry().getName());
+		assertEquals(idPais,personasEncontradasPorPais.get(0).getCountry().getId());
 	}
 	
 	@Test
-	public void buscarPersonaPorIdPais_conIdInexistente_retornaNull() {
+	public void buscarPersonasPorIdPais_conIdInexistente_retornaNull() {
 		Long idPais = -100L;
 		
 		List<Person> personasEncontradasPorPais = personService.buscarPersonasPorIdPais(idPais);
 		
 		assertThat(personasEncontradasPorPais).isEmpty();
+	}
+	
+	@Test
+	public void buscarPersonasPorNombrePais_conNombreExistente_retornaListaDePersonas() {
+		String nombrePais = "Argentina";
+		
+		List<Person> personasEncontradasPorNombrePais = personService.buscarPersonasPorNombrePais(nombrePais);
+		
+		assertThat(personasEncontradasPorNombrePais).isNotNull();
+		assertEquals("Argentina",personasEncontradasPorNombrePais.get(0).getCountry().getName());
+	}
+	
+	@Test
+	public void buscarPersonasPorNombrePais_conNombreInexistente_retornaListaVacia() {
+		String nombrePais = "ZZZZZZZ";
+		
+		List<Person> personasEncontradasPorNombrePais = personService.buscarPersonasPorNombrePais(nombrePais);
+		
+		assertThat(personasEncontradasPorNombrePais).isEmpty();
+	}
+	
+	@Test
+	public void buscarPersonasPorApellido_conApellidoExistente_retornaUnaListaPersona() {
+		String apellido = "Lopez";
+		
+		List<Person> personasEncontradas = personService.buscarPersonasPorApellido(apellido);
+		
+		assertThat(personasEncontradas).isNotNull();
+		assertEquals("Lopez",personasEncontradas.get(0).getSurname());
+	}
+	
+	@Test
+	public void buscarPersonasPorApellido_conApellidoInexistente_retornaUnaListaVacia() {
+		String apellido = "ZZZZZZZ";
+		
+		List<Person> personasEncontradas = personService.buscarPersonasPorApellido(apellido);
+		
+		assertThat(personasEncontradas).isEmpty();
 	}
 	
 //	@Test

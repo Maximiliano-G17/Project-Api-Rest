@@ -15,5 +15,9 @@ public interface PersonService {
 
 	List<Person> buscarPersonasPorIdPais(Long idPais);
 
+	List<Person> buscarPersonasPorNombrePais(String nombrePais);
+
+	List<Person> buscarPersonasPorApellido(String apellido);
+
 
 }

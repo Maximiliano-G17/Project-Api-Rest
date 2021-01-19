@@ -73,19 +73,14 @@ public class PersonRestController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Person> update(@RequestBody Person person, @PathVariable Long id){
+	public ResponseEntity<Person> update(@RequestBody Person persona, @PathVariable Long id){
 		Optional<Person> personUdate = personService.buscarPersonaPorId(id);
 		
 		if(!personUdate.isPresent()) {
 			return ResponseEntity.notFound().build();
-		}
-		personUdate.get().setAge(person.getAge());
-		personUdate.get().setCountry(person.getCountry());
-		personUdate.get().setDni(person.getDni());
-		personUdate.get().setName(person.getName());
-		personUdate.get().setSurname(person.getSurname());
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(personService.guardarPersona(personUdate.get()));
+		}		
+		return ResponseEntity.status(HttpStatus.CREATED)
+							 .body(personService.actualizarPersona(personUdate,persona));
 	}
 	
 	@DeleteMapping("/{id}")

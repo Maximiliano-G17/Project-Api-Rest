@@ -20,6 +20,6 @@ public interface PersonService {
 	List<Person> buscarPersonasPorApellido(String apellido);
 	
 	void eliminarPersona(Long id);
-
-
+	
+	Person actualizarPersona(Optional<Person> personaAActualizar,Person personaActualizada);
 }

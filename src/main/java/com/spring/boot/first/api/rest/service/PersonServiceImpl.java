@@ -53,4 +53,15 @@ public class PersonServiceImpl implements PersonService{
 	public void eliminarPersona(Long id) {
 		personRepo.deleteById(id);		
 	}
+
+	@Override
+	public Person actualizarPersona(Optional<Person> personaAActualizar,Person personaActualizada) {
+		personaAActualizar.get().setAge(personaActualizada.getAge());
+		personaAActualizar.get().setCountry(personaActualizada.getCountry());
+		personaAActualizar.get().setDni(personaActualizada.getDni());
+		personaAActualizar.get().setName(personaActualizada.getName());
+		personaAActualizar.get().setSurname(personaActualizada.getSurname());	
+		
+		return personRepo.save(personaAActualizar.get());
+	}
 }

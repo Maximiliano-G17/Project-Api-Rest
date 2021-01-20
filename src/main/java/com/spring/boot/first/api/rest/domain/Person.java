@@ -7,6 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "people")
@@ -15,10 +20,19 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotEmpty(message = "The name cannot be empty")
+	@Min(2)
 	private String name;
+	@NotEmpty(message = "The surname cannot be empty")
+	@Min(2)
 	private String surname;
+	@NotEmpty(message = "The DNI cannot be empty")
+	@Pattern(regexp = "[0-9]{8}", message = "The DNI must contain only numbers, a length of 8 and without points")
 	private String dni;
+	@NotEmpty(message = "The age cannot be empty")
+	@Pattern(regexp = "[0-9]{2}", message = "The age must contain only numbers")
 	private String age;
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_country")
 	private Country country;

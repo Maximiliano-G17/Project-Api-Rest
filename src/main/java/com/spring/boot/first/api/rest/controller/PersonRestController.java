@@ -1,6 +1,7 @@
 package com.spring.boot.first.api.rest.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -110,11 +111,11 @@ public class PersonRestController {
 							 .build();
 	}
 	
-	private List<String> seeErrors(BindingResult result) {
-		List<String> errors = new ArrayList<>();
-		for(int i = 0; i < result.getErrorCount(); i++) {
-			errors.add(result.getAllErrors().get(i).getDefaultMessage());
-		}	
+	private List<String> seeErrors(BindingResult result) {		
+		List<String> errors = result.getAllErrors()
+									.stream()
+									.map(error -> error.getDefaultMessage())
+									.collect(Collectors.toList());
 		return errors;
 	}
 }

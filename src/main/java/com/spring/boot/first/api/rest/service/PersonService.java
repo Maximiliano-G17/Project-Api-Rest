@@ -22,4 +22,8 @@ public interface PersonService {
 	void eliminarPersona(Long id);
 	
 	Person actualizarPersona(Optional<Person> personaAActualizar,Person personaActualizada);
+
+	Double calcularPromedio(String pais);
+
+	List<Person> buscarTopFive(String pais);
 }

@@ -1,7 +1,5 @@
 package com.spring.boot.first.api.rest.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,8 +46,30 @@ public class PersonRestController {
 		return ResponseEntity.ok(people);
 	}
 	
+	@GetMapping("top5/{countryName}")
+	public ResponseEntity<List<Person>> readTopFive(@PathVariable String countryName){
+		List<Person> topFive = personService.buscarTopFive(countryName);
+		if(!topFive.isEmpty()) {
+			return ResponseEntity.ok(topFive);
+			
+		}
+		return ResponseEntity.notFound()
+							 .build();
+	}
+	
+	@GetMapping("average/{countryName}")
+	public ResponseEntity<Double> readByAverageCountry(@PathVariable String countryName){
+		Double average = personService.calcularPromedio(countryName);
+		if(average != null) {
+			return ResponseEntity.ok(average);
+			
+		}
+		return ResponseEntity.notFound()
+							 .build();
+	}
+	
 	@GetMapping("country/{id}")
-	public ResponseEntity<List<Person>> readForCountryId(@PathVariable(value = "id") Long countryId){
+	public ResponseEntity<List<Person>> readByCountryId(@PathVariable(value = "id") Long countryId){
 		List<Person> peopleForCountryId = personService.buscarPersonasPorIdPais(countryId);
 		if(peopleForCountryId.isEmpty()) {
 			return ResponseEntity.notFound()
@@ -60,7 +79,7 @@ public class PersonRestController {
 	}
 	
 	@GetMapping("country/name/{name}")
-	public ResponseEntity<List<Person>> readForCountryName(@PathVariable(value = "name") String countryName){
+	public ResponseEntity<List<Person>> readByCountryName(@PathVariable(value = "name") String countryName){
 		List<Person> peopleForCountryName = personService.buscarPersonasPorNombrePais(countryName);
 		if(peopleForCountryName.isEmpty()) {
 			return ResponseEntity.notFound()
@@ -69,14 +88,14 @@ public class PersonRestController {
 		return ResponseEntity.ok(peopleForCountryName);
 	}
 	
-	@GetMapping("country/surname/{surname}")
-	public ResponseEntity<List<Person>> readForCountrySurname(@PathVariable(value = "surname") String countrySurname){
-		List<Person> peopleForCountrySurname = personService.buscarPersonasPorApellido(countrySurname);
-		if(peopleForCountrySurname.isEmpty()) {
+	@GetMapping("surname/{surname}")
+	public ResponseEntity<List<Person>> readBySurname(@PathVariable String surname){
+		List<Person> peopleBySurname = personService.buscarPersonasPorApellido(surname);
+		if(peopleBySurname.isEmpty()) {
 			return ResponseEntity.notFound()
 								 .build();
 		}
-		return ResponseEntity.ok(peopleForCountrySurname);
+		return ResponseEntity.ok(peopleBySurname);
 	}
 	
 	@PostMapping

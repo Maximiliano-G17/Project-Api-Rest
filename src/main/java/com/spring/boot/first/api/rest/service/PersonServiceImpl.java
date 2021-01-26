@@ -64,4 +64,14 @@ public class PersonServiceImpl implements PersonService{
 		
 		return personRepo.save(personaAActualizar.get());
 	}
+
+	@Override
+	public Double calcularPromedio(String pais) {
+		return personRepo.findAverageAgeByCountryName(pais);
+	}
+
+	@Override
+	public List<Person> buscarTopFive(String pais) {
+		return personRepo.findTop5ByCountryNameOrderByAgeDesc(pais);
+	}
 }
